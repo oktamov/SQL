@@ -31,7 +31,7 @@ from Students
 
 ```sql
 create table Departments (
-	department_id serial,
+	department_id int,
 	department_name VARCHAR(50),
 	email VARCHAR(50),
 	region_id VARCHAR(50)
@@ -54,12 +54,12 @@ select * from departments
 
 ```sql
 create table Staffs (
-	id serial,
+	id int,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	email VARCHAR(50),
 	gender VARCHAR(50),
-	departments_id serial
+	departments_id int
 );
 insert into Staffs (id, first_name, last_name, email, gender, departments_id) values (1, 'Margaretha', 'Bocken', 'mbocken0@unblog.fr', 'Female', 1);
 insert into Staffs (id, first_name, last_name, email, gender, departments_id) values (2, 'Cyb', 'Carey', 'ccarey1@wp.com', 'Female', 2);
@@ -79,13 +79,13 @@ select * from Staffs;
 
 ```sql
 create table Teachers (
-	id serial,
+	id int,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	email VARCHAR(50),
 	gender VARCHAR(50),
-	department_id serial,
-	group_id serial
+	department_id int,
+	group_id int
 );
 insert into Teachers (id, first_name, last_name, email, gender, department_id, group_id) values (1, 'Carolynn', 'Plum', 'cplum0@yellowpages.com', 'Female', 1, 1);
 insert into Teachers (id, first_name, last_name, email, gender, department_id, group_id) values (2, 'Miof mela', 'Wisbey', 'mwisbey1@dagondesign.com', 'Female', 2, 2);
@@ -105,10 +105,10 @@ select * from teachers
 
 ```sql
 create table Groups (
-	group_id serial,
+	group_id int,
 	group_name VARCHAR(50),
 	ip_address VARCHAR(20),
-	department_id serial
+	department_id int
 );
 insert into Groups (group_id, group_name, ip_address, department_id) values (1, 'mshiril0', '84.6.223.120', 1);
 insert into Groups (group_id, group_name, ip_address, department_id) values (2, 'esmeed1', '85.229.119.215', 2);
@@ -128,10 +128,10 @@ select * from groups
 
 ```sql
 create table Regions (
-	region_id serial,
+	region_id int,
 	region_name VARCHAR(50),
 	ip_address VARCHAR(50),
-	department_id serial
+	department_id int
 );
 insert into Regions (region_id, region_name, ip_address, department_id) values (1, 'amcdermid0', '90410 Sugar Park', 1);
 insert into Regions (region_id, region_name, ip_address, department_id) values (2, 'ttunder1', '57 Sullivan Alley', 2);
@@ -152,9 +152,9 @@ select * from regions
 
 ```sql
 create table subjects (
-	subject_id serial,
+	subject_id int,
 	subject_name VARCHAR(50),
-	teacher_id serial,
+	teacher_id int,
 	date VARCHAR(50)
 );
 insert into subjects (subject_id, subject_name, teacher_id, date) values (1, 'Evvy', 1, 'du');
