@@ -1,22 +1,17 @@
 # task1
 ```sql
-create or replace function json_key(key varchar(10))
+create or replace function get_model_value(model jsonb, lang varchar)
     returns text
     language plpgsql
 as
 $$
-declare
-    val text;
 begin
-    select model::json ->> key
-    into val
-    from aircrafts_data;
-    return val;
+    return model ->> lang;
 end;
 $$;
 
-
-select json_key('ru');
+select aircraft_code, get_model_value(model, 'ru'), range
+from aircrafts_data;
 ```
 ![img.png](img.png)
 #  
