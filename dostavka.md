@@ -3,51 +3,82 @@
 
 
 ```sql
-Table Admins {
-  id serial [pk]
-  username text [not null]
-  telegram_id bigint [not null]
+Table admins {
+  admin_id SERIAL [pk]
+  telegram_id BIGINT [unique, not null]
+  address VARCHAR(255) [ref:< Restaurants.restaurant_address]
+}
+
+Table logs {
+  id SERIAL [pk]
+  name VARCHAR(255)
+  detail TEXT
+  old_data json
+  new_data json
+  table_name VARCHAR(255)
 }
 
 Table Customers {
-  id serial [pk]
-  telegram_id bigint [unique]
-  name text [not null]
-  phone_number text [not null]
-  admins_id integer [ref: < Admins.id]
-}
-
-Table Delivery {
-  id serial [pk]
-  name text [not null]
-  phone_number text [not null]
-}
-
-Table Menu_Items {
-  id serial [pk]
-  name text [not null]
-  price integer [not null]
-  description text
+  customer_id SERIAL [pk]
+  first_name VARCHAR(50) [not null]
+  last_name VARCHAR(50) [not null]
+  phone_number VARCHAR(20) [not null]
+  telegram_id VARCHAR(20) [not null]
+  created_at TIMESTAMP [default: `CURRENT_TIMESTAMP`]
+  address VARCHAR(255) [unique, not null]
 }
 
 Table Orders {
-  id serial [pk]
-  customer_id integer [ref: > Customers.id]
-  delivery_id integer [ref: > Delivery.id]
-  order_time timestamp [not null]
-  delivery_address text [not null]
-  total_price integer [not null]
-  status text [not null] 
+  order_id SERIAL [pk]
+  delivery_address VARCHAR(255) [not null]
+  order_time TIMESTAMP [default: `CURRENT_TIMESTAMP`]
+  order_status VARCHAR(20) [not null]
+  customer_id int [ref: < Customers.customer_id]
 }
 
-Table Order_Items {
-  id serial [pk]
-  order_id integer [ref: > Orders.id]
-  menu_item_id integer [ref: > Menu_Items.id]
-  quantity integer [not null]
-  item_price integer [not null]
+Table OrderItems {
+  order_item_id SERIAL [pk]
+  item_name VARCHAR(255) [not null]
+  item_quantity INT [not null]
+  item_price DECIMAL(10,2) [not null]
+  order_id int [ref: < Orders.order_id]
 }
+
+Table Restaurants {
+  restaurant_id SERIAL [pk]
+  restaurant_name VARCHAR(255) [not null]
+  restaurant_address VARCHAR(255) [not null]
+  restaurant_phone VARCHAR(20) [not null]
+}
+
+Table MenuCategories {
+  category_id SERIAL [pk]
+  category_name VARCHAR(50) [not null]
+}
+
+Table MenuItems {
+  item_id SERIAL [pk]
+  item_name VARCHAR(255) [not null]
+  item_description VARCHAR(255)
+  item_price DECIMAL(10,2) [not null]
+  category_id int [ref:< MenuCategories.category_id]
+  restaurant_id int [ref:< Restaurants.restaurant_id]
+}
+
+Table DeliveryPersonnel {
+  personnel_id SERIAL [pk]
+  first_name VARCHAR(50) [not null]
+  last_name VARCHAR(50) [not null]
+  phone_number VARCHAR(20) [not null]
+}
+
+Table Deliveries {
+  delivery_id SERIAL [pk]
+  delivery_time TIMESTAMP [default: `CURRENT_TIMESTAMP`]
+  order_id int [ref: < Orders.order_id]
+  personnel_id int [ref:<  DeliveryPersonnel.personnel_id]
+}
+
 
 ```
-![image](https://user-images.githubusercontent.com/122670933/226100603-00e45c30-64b7-40fc-9a13-d1b8cade578c.png)
-
+![image](https://user-images.githubusercontent.com/122670933/226170930-0a8edca2-a433-4fe6-9917-607caa5bc90f.png)
