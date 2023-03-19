@@ -9,14 +9,6 @@ Table admins {
   address VARCHAR(255) [ref:< Restaurants.restaurant_address]
 }
 
-Table logs {
-  id SERIAL [pk]
-  name VARCHAR(255)
-  detail TEXT
-  old_data json
-  new_data json
-  table_name VARCHAR(255)
-}
 
 Table Customers {
   customer_id SERIAL [pk]
@@ -77,6 +69,15 @@ Table Deliveries {
   delivery_time TIMESTAMP [default: `CURRENT_TIMESTAMP`]
   order_id int [ref: < Orders.order_id]
   personnel_id int [ref:<  DeliveryPersonnel.personnel_id]
+}
+
+Table logs {
+  id SERIAL [pk]
+  name VARCHAR(255)
+  detail TEXT
+  old_data json
+  new_data json
+  table_name VARCHAR(255)
 }
 
 
