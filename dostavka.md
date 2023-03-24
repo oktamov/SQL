@@ -7,6 +7,7 @@ Table admins {
   admin_id SERIAL [pk]
   telegram_id BIGINT [unique, not null]
   address VARCHAR(255) [ref:< Restaurants.restaurant_address]
+
 }
 
 
@@ -18,6 +19,7 @@ Table Customers {
   telegram_id VARCHAR(20) [not null]
   created_at TIMESTAMP [default: `CURRENT_TIMESTAMP`]
   address VARCHAR(255) [unique, not null]
+  admin_id INT [ref:< admins.admin_id]
 }
 
 Table Orders {
@@ -62,6 +64,7 @@ Table DeliveryPersonnel {
   first_name VARCHAR(50) [not null]
   last_name VARCHAR(50) [not null]
   phone_number VARCHAR(20) [not null]
+  restaurant_id INT [ref:< Restaurants.restaurant_id]
 }
 
 Table Deliveries {
@@ -81,5 +84,6 @@ Table logs {
 }
 
 
+
 ```
-![image](https://user-images.githubusercontent.com/122670933/226170930-0a8edca2-a433-4fe6-9917-607caa5bc90f.png)
+![image](https://user-images.githubusercontent.com/122670933/227492290-9c53b4f6-666c-4048-9efe-685d632f3d30.png)
